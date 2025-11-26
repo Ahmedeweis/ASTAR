@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <section
     class="relative w-full min-h-screen text-white overflow-hidden font-sans"
     :style="{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
@@ -6,7 +7,21 @@
     <!-- Overlay for better text readability -->
     <div class="absolute inset-0 bg-black/20"></div>
 
-    <Header />
+    <nav class="relative z-50 flex justify-between items-center px-8 md:px-16 py-8 w-full">
+      <!-- Left: Future of Fashion -->
+      <div class="flex items-center space-x-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+          <div class="w-2 h-2 rotate-45 bg-white"></div> <!-- Diamond Icon -->
+          <span>Future of Fashion</span>
+      </div>
+
+      <!-- Right: Social Links -->
+      <div class="flex items-center space-x-8 text-[10px] font-bold uppercase tracking-widest text-white/70">
+        <a href="#" class="hover:text-white transition-colors">IN</a>
+        <a href="#" class="hover:text-white transition-colors">TW</a>
+        <a href="#" class="hover:text-white transition-colors">YT</a>
+        <a href="#" class="hover:text-white transition-colors">GO</a>
+      </div>
+    </nav>
 
     <!-- Hero Content -->
     <div class="relative z-20 container mx-auto px-8 md:px-16 pt-12 md:pt-20 flex flex-col md:flex-row h-full items-center">
@@ -37,12 +52,26 @@
 
         <!-- Thumbnails -->
         <div class="mt-16 flex items-end space-x-6">
-            <div v-for="i in 3" :key="i" class="relative group cursor-pointer">
-                <div class="w-24 h-32 bg-gray-800 overflow-hidden border border-gray-700/50 skew-x-[-6deg] transition-transform group-hover:-translate-y-2">
-                    <img :src="`https://placehold.co/200x300/222/FFF?text=Look+${i}`" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500 skew-x-[6deg] scale-125" />
+            <div v-for="(item, i) in visibleImages" :key="i" class="relative group cursor-pointer">
+                <div
+                  :style="{
+                    backgroundColor: item.bg,
+                    paddingTop: item.pt,
+                    paddingLeft: '8px',
+                    paddingRight: '8px'
+                  }"
+                  class="w-[92px] h-[246px] overflow-hidden border border-gray-700/50 skew-x-[-12deg] transition-all duration-500 group-hover:-translate-y-3"
+                >
+                    <img
+                      :src="item.src"
+                      class="w-full h-full object-contain  group-hover:opacity-100 transition-opacity duration-500 skew-x-[12deg]"
+                    />
                 </div>
             </div>
-            <div class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center cursor-pointer hover:bg-white hover:text-black transition-colors">
+            <div
+              @click="nextImage"
+              class="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center cursor-pointer hover:bg-white hover:text-black transition-all duration-300 hover:scale-110"
+            >
                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
@@ -65,9 +94,18 @@
                <img src="../assets/imgs/Model.png" alt="Main Model" class="relative z-10 w-full max-w-xl h-auto object-cover scale-125" />
 
                <!-- Floating Price Tag -->
-               <div class="absolute top-1/4 right-[-83px]  p-4 text-white z-30">
-                   <div class="text-xs uppercase tracking-widest text-gray-300">New Arrival</div>
-                   <div class="text-xl font-bold mt-1">$120.00</div>
+               <div class="absolute top-[0px] right-[-150px]  p-4 text-white z-30">
+                   <div class="text-xs uppercase tracking-widest font-bold flex flex-col text-gray-300">
+                     <p>color</p>
+                     <p>Charcoal Gray</p>
+
+                  </div>
+                   <div class="text-lg font-bold flex justify-between mt-1">
+                       <p class="mr-5">ID:0163647</p>
+                    <p>$120.00</p>
+
+
+                   </div>
                </div>
              </div>
 
@@ -85,8 +123,38 @@
 </template>
 
 <script setup>
+import { ref, computed } from 'vue';
 import Header from './Header.vue';
 import bgImage from '../assets/imgs/land.png';
+import mo1 from '../assets/imgs/mo1.png';
+import mo2 from '../assets/imgs/mod2.png';
+import mo3 from '../assets/imgs/mod3.png';
+import mo4 from '../assets/imgs/mod4.png';
+
+// All 4 images with their background colors
+const allImages = [
+  { src: mo1, bg: '#B1ADAA', pt: '80px' },
+  { src: mo2, bg: '#91A3A7', pt: '70px' },
+  { src: mo3, bg: '#C6D3CF', pt: '40px' },
+  { src: mo4, bg: '#B1ADAA', pt: '45px' }
+];
+
+const currentIndex = ref(0);
+
+// Get 3 visible images starting from currentIndex
+const visibleImages = computed(() => {
+  const visible = [];
+  for (let i = 0; i < 3; i++) {
+    const index = (currentIndex.value + i) % allImages.length;
+    visible.push(allImages[index]);
+  }
+  return visible;
+});
+
+// Navigate to next image (carousel loop)
+const nextImage = () => {
+  currentIndex.value = (currentIndex.value + 1) % allImages.length;
+};
 </script>
 
 <style scoped>
