@@ -10,8 +10,8 @@
     <nav class="relative z-50 flex justify-between items-center px-8 md:px-16 py-8 w-full">
       <!-- Left: Future of Fashion -->
       <div class="flex items-center space-x-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
-          <div class="w-2 h-2 rotate-45 bg-white"></div> <!-- Diamond Icon -->
-          <span>Future of Fashion</span>
+
+          <span></span>
       </div>
 
       <!-- Right: Social Links -->
@@ -24,16 +24,26 @@
     </nav>
 
     <!-- Hero Content -->
-    <div class="relative z-20 container mx-auto px-8 md:px-16 pt-12 md:pt-20 flex flex-col md:flex-row h-full items-center">
+    <div class="relative z-20 container mx-auto px-8 md:px-16 pt-4 md:pt-8 flex flex-col md:flex-row h-full items-center">
       <!-- Left Content (40%) -->
       <div class="md:w-[40%] flex flex-col justify-center space-y-8 z-30">
 
         <!-- Main Heading -->
         <div class="relative">
-            <h1 class="text-7xl md:text-[9rem] font-bold leading-none tracking-tighter text-white opacity-90 select-none">
-            ASTAR
-            </h1>
-            <p class="text-gray-400 text-sm md:text-base max-w-sm mt-6 leading-relaxed font-light tracking-wide">
+                <!-- Left: Future of Fashion -->
+      <div class="flex items-center space-x-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+          <div >
+            <img src="../assets/imgs/clean.png " class="w-8 h-8 " alt="">
+          </div> <!-- Diamond Icon -->
+          <span class="text-[18px]">Future of Fashion</span>
+      </div>
+<h1
+      style="font-size: 128px; letter-spacing: 2px; margin: 0;     font-family: serif;"
+      class="font-bold leading-none tracking-tighter opacity-90 select-none text-gradient"
+    >
+      ASTAR
+    </h1>
+            <p class="text-white text-sm md:text-base max-w-sm mt-6 leading-relaxed font-light tracking-wide">
               Discover the latest trends in the world of fashion with our unique collection.
               Experience the future of style today with <span class="text-white font-medium">ASTAR</span>.
             </p>
@@ -51,7 +61,7 @@
         </div>
 
         <!-- Thumbnails -->
-        <div class="mt-16 flex items-end space-x-6">
+        <div class="mt-16 pb-[32px] flex items-end space-x-6">
             <div v-for="(item, i) in visibleImages" :key="i" class="relative group cursor-pointer">
                 <div
                   :style="{
@@ -110,8 +120,8 @@
              </div>
 
              <!-- Bottom Text (Small) -->
-             <div class="mb-4 ml-4 max-w-[150px]">
-                <p class="text-[10px] text-gray-400 leading-tight uppercase tracking-wide text-right md:text-left">
+             <div class="mb-4 ml-4 max-w-[250px]">
+                <p class="text-[14px] text-white leading-tight uppercase tracking-wide text-right md:text-left">
                   from minimalistic lines to bold silhouettes, astar's cool latest collections designed to inspire experience fashion redefined
                 </p>
              </div>
@@ -163,4 +173,17 @@ const nextImage = () => {
     writing-mode: vertical-rl;
     text-orientation: mixed;
 }
+.text-gradient {
+      /* تطبيق التدرج اللوني */
+      background: linear-gradient(to right, #FDFDFB, #C2BFD7);
+
+      /* استخدام خصائص Webkit لجعل الخلفية تظهر فقط كقناع للنص */
+      -webkit-background-clip: text;
+
+      /* جعل لون النص شفافًا لإظهار الخلفية (التدرج) */
+      -webkit-text-fill-color: transparent;
+
+      /* خاصية احتياطية للمتصفحات غير المتوافقة */
+      color: #FDFDFB;
+    }
 </style>
